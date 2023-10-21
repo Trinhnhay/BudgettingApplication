@@ -7,40 +7,40 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping(path="customer")
+@RequestMapping(path="customers")
 public class CustomerController {
-    private final CustomerService CustomerService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService CustomerService){
-        this.CustomerService=CustomerService;
+    public CustomerController(CustomerService customerService){
+        this.customerService=customerService;
     }
 
     @GetMapping
     public List<Customer> getCustomer(){
-        return CustomerService.getCustomer();
+        return customerService.getCustomer();
     }
 
 
     //Login to an Account
     @PostMapping(path = "login")
-    public void loginToAccount (@RequestBody Customer Customer){
-        CustomerService.accountLogin(Customer);
+    public Customer loginToAccount (@RequestBody Customer Customer){
+        return customerService.accountLogin(Customer);
     }
 
     //Register an account
     @PostMapping(path = "registration")
-    public void registerNewAccount(@RequestBody Customer Customer ){CustomerService.addNewAccount(Customer);
+    public void registerNewAccount(@RequestBody Customer Customer ){customerService.addNewAccount(Customer);
     }
 
     //Delete an account
     @DeleteMapping(path="delete/{username}")
-    public void deleteCustomer (@PathVariable ("username")String username){CustomerService.deleteCustomer(username);
+    public void deleteCustomer (@PathVariable ("username")String username){customerService.deleteCustomer(username);
     }
 
     //Edit account information
     @PutMapping(path="update/{username}")
-    public void uppdateCustomer(
+    public void updateCustomer(
             @PathVariable("username") String username,
             @RequestParam(required = false) String password,
             @RequestParam(required = false) String firstName,
@@ -49,6 +49,6 @@ public class CustomerController {
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String address
     ){
-        CustomerService.updateCustomer(username, password, firstName, lastName, phoneNumber, email, address);
+        customerService.updateCustomer(username, password, firstName, lastName, phoneNumber, email, address);
     }
 }

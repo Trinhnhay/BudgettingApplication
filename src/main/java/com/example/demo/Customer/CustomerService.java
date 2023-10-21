@@ -75,11 +75,12 @@ public class CustomerService {
         }
     }
 
-    public void accountLogin(Customer customer) {
-        Optional <Customer> customerOptionalUsername = CustomerRepository
+    public Customer accountLogin(Customer customer) {
+        Optional<Customer> customerOptionalUsername = CustomerRepository
                 .findAnAccount(customer.getUsername(), customer.getPassword());
         if (customerOptionalUsername.isEmpty()){
             throw new RequestException("Invalid username/password");
         }
+        return customerOptionalUsername.get();
     }
 }
