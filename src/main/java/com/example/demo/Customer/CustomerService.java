@@ -12,23 +12,23 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
-    private final CustomerRepository CustomerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository CustomerRepository) {
-        this.CustomerRepository = CustomerRepository;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     public List<Customer> getCustomer() {
-        return CustomerRepository.findAll();
+        return customerRepository.findAll();
     }
 
     public void addNewAccount (Customer Customer){
 
-        Optional <Customer> CustomerOptionalUsername = CustomerRepository
+        Optional <Customer> CustomerOptionalUsername = customerRepository
                 .findUsernameCustomer(Customer.getUsername());
 
-        Optional <Customer> CustomerOptionalEmail = CustomerRepository
+        Optional <Customer> CustomerOptionalEmail = customerRepository
                 .findEmailCustomer(Customer.getEmail());
 
         if (CustomerOptionalUsername.isPresent()){
@@ -37,20 +37,19 @@ public class CustomerService {
         if (CustomerOptionalEmail.isPresent()){
             throw new RequestException("This email address is used");
         }
-        CustomerRepository.save(Customer);
+        customerRepository.save(Customer);
     }
 
     public void deleteCustomer(String username){
-
-        if (!CustomerRepository.existsById(username)){
+        if (!customerRepository.existsById(username)){
             throw new RequestException("The username does not exist");
         }
-        CustomerRepository.deleteById(username);
+        customerRepository.deleteById(username);
     }
 
     @Transactional
     public void updateCustomer(String username, String password, String firstName, String lastName , String phoneNumber, String email, String address){
-        Customer customer = CustomerRepository.findById(username)
+        Customer customer = customerRepository.findById(username)
                 .orElseThrow(()-> new RequestException(
                         "This account does not exist"
                 ));
@@ -76,7 +75,7 @@ public class CustomerService {
     }
 
     public Customer accountLogin(Customer customer) {
-        Optional<Customer> customerOptionalUsername = CustomerRepository
+        Optional<Customer> customerOptionalUsername = customerRepository
                 .findAnAccount(customer.getUsername(), customer.getPassword());
         if (customerOptionalUsername.isEmpty()){
             throw new RequestException("Invalid username/password");
