@@ -59,6 +59,13 @@ public class TransactionController {
         return transactionService.getTransactionByMonth(username, month);
     }
 
+    // display all transactions by card number
+    @GetMapping(path="{username}/card={cardNumber}")
+    public List <Transaction> getTransactionByCardNumber (@PathVariable("username") String username,
+                                                          @PathVariable("cardNumber") String cardNumber){
+        return transactionService.getTransactionByCardNumber(username, cardNumber);
+    }
+
     @DeleteMapping(path="{username}/delete/id={transID}")
     public void deleteTransaction(@PathVariable("username") String username, @PathVariable("transID") Long transID){
         transactionService.deleteTransaction(transID, username);

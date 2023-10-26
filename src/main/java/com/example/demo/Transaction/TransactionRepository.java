@@ -25,4 +25,8 @@ public interface TransactionRepository extends JpaRepository <Transaction, Long>
 
     @Query("SELECT s from Transaction s WHERE s.username= ?1 and month(s.transDate)= ?2 ORDER BY s.transDate DESC")
     List<Transaction> findTransactionByMonth(String username, Integer month);
+
+    @Query("SELECT s from Transaction s WHERE s.username= ?1 and s.cardNumber= ?2 ORDER BY s.transDate DESC")
+    List<Transaction> findTransactionByCardNumber(String username, String cardNumber);
+
 }

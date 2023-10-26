@@ -33,6 +33,8 @@ public class TransactionService {
     public void addNewTransaction (Transaction transaction, String username) {
         if (isUsernamePresent(username)){
             transaction.setUsername(username);
+            if(transaction.getMerchant()==null)
+                transaction.setMerchant("Unknown");
             transactionRepository.save(transaction);
         }
         else
@@ -90,6 +92,18 @@ public class TransactionService {
             else
                 return transactionRepository
                         .findTransactionByMonth(username, month);
+        }
+        else
+            throw new RequestException("This username does not exist");
+    }
+
+    public List<Transaction> getTransactionByCardNumber(String username, String cardNumber) {
+        if (isUsernamePresent(username)) {
+            if (transactionRepository.findTransactionByCardNumber(username, cardNumber).isEmpty())
+                throw new SuccessfulRequest("There is no such transaction");
+            else
+                return transactionRepository
+                        .findTransactionByCardNumber(username, cardNumber);
         }
         else
             throw new RequestException("This username does not exist");

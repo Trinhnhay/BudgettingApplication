@@ -23,6 +23,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long transID;
 
+    @Column(name="card_number")
+    private String cardNumber;
+
     @Column (name="merchant",
             columnDefinition ="text")
     private String merchant;
