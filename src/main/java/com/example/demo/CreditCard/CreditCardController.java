@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "credit_card")
 public class CreditCardController {
 
@@ -15,8 +16,17 @@ public class CreditCardController {
     }
 
     //Add a credit card
-    @PostMapping(path= "{username}/new")
+    @PostMapping(path= "{username}/add_new_card")
     public void addCreditCard (@PathVariable ("username") String username, @RequestBody CreditCard creditCard){
         creditCardService.addCreditCard (creditCard, username);
     }
+
+    @GetMapping (path ="current-balance-of-{cardNumber}")
+    public Double getCurrentBalance(@PathVariable ("cardNumber") String cardNumber){
+        return creditCardService.getCurrentBalance(cardNumber);
+    }
+
+
+
+
 }

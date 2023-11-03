@@ -23,7 +23,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long transID;
 
-    @Column(name="card_number")
+    @Column(name="card_number",
+            nullable = false)
     private String cardNumber;
 
     @Column (name="merchant",
@@ -41,7 +42,7 @@ public class Transaction {
     private String transCategory;
 
     @Column (name="trans_amount",
-            columnDefinition = "double precision",
+            columnDefinition = "DOUBLE(10,2)",
             nullable = false)
     private Double transAmount;
 

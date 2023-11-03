@@ -18,42 +18,42 @@ import java.sql.Date;
 public class CreditCard {
 
     @Id
-    @Column(name = "ID",
-            nullable = false,
-            columnDefinition = "Integer")
-    @SequenceGenerator(name = "sequence", sequenceName = "sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    private Integer id;
-
     @Column (name ="card_number",
             nullable = false,
             columnDefinition = "text")
     private String cardNumber;
 
     @Column(name ="issuer",
+            nullable = false,
             columnDefinition = "text")
     private String issuer;
 
-    @Column(name ="interest_rate")
+    @Column(name ="interest_rate",
+            nullable = false)
     private Double interestRate; // Assume it is monthly rate
 
-    @Column(name ="credit_limit")
+    @Column(name ="credit_limit",
+            nullable = false)
     private Double creditLimit;
 
-    @Column(name ="current_balance")
+    @Column(name ="current_balance",
+            columnDefinition = "DOUBLE(10,2)")
     private Double currentBalance;
 
-    @Column(name =" available_credit")
+    @Column(name =" available_credit",
+            columnDefinition = "DOUBLE(10,2)")
     private Double availableCredit;
 
-    @Column (name ="minimum_payment")
+    @Column (name ="minimum_payment",
+            nullable = false)
     private Double minimumPayment;
 
     @Column (name="due_date")
     @JsonFormat(pattern = "MM/dd/yyyy")
     private Date dueDate;
 
-    @Column (name ="payment_due")
+    @Column (name ="payment_due",
+            columnDefinition = "double precision")
     private Double paymentDue;
 
     @Column (name ="username")
