@@ -29,19 +29,12 @@ public class TransactionService {
 
     public void addNewTransaction (Transaction transaction, String username) {
         doesUsernameExist(username);
-
         transaction.setUsername(username);
-        if(transaction.getMerchant()==null)
-            transaction.setMerchant("Unknown");
-        if (transaction.getTransCategory().equals("payment"))
-            transaction.setTransAmount(-Math.abs(transaction.getTransAmount()));
-        else
-            transaction.setTransAmount(Math.abs(transaction.getTransAmount()));
-
         doesCreditCardExist(transaction.getCardNumber());
         transactionRepository.save(transaction);
         updateCreditCardBalance(transaction);
     }
+
 
     public List<Transaction> getTransaction(String username){
         doesUsernameExist(username);
