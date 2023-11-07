@@ -53,6 +53,10 @@ public class CustomerService {
                 .orElseThrow(()-> new RequestException(
                         "This account does not exist"
                 ));
+
+        Optional <Customer> CustomerOptionalEmail = customerRepository
+                .findEmailCustomer(email);
+
         if(password !=null && !password.isEmpty() && !Objects.equals(customer.getPassword(),password)){
             customer.setPassword(password);
         }
@@ -66,7 +70,10 @@ public class CustomerService {
         if(phoneNumber !=null && !phoneNumber.isEmpty() && !Objects.equals(customer.getPhoneNumber(),phoneNumber)){
             customer.setPhoneNumber(phoneNumber);
         }
-        if(email !=null && !email.isEmpty() && !Objects.equals(customer.getEmail(),email)){
+        if (CustomerOptionalEmail.isPresent()){
+            throw new RequestException("This email address is used");
+        }
+        else if (email !=null && !email.isEmpty()){
             customer.setEmail(email);
         }
         if(address !=null && !address.isEmpty() && !Objects.equals(customer.getAddress(),address)){

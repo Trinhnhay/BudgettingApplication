@@ -27,6 +27,7 @@ public class TransactionController {
         transactionService.addNewTransaction(transaction, username);
     }
 
+
     // display all transactions of a username
    @GetMapping(path ="{username}")
     public List<Transaction> getTransaction(@PathVariable("username") String username){
