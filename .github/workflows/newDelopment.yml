@@ -1,0 +1,21 @@
+name: Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Heroku
+      - uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HERUKO_KEY}} 
+          heroku_app_name: "budgetting-application" #Must be unique in Heroku
+          heroku_email: ${{secrets.HERUKO_EMAIL}} 
