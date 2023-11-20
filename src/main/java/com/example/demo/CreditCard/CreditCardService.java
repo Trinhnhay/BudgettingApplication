@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CreditCardService {
     private final CreditCardRepository creditCardRepository;
@@ -52,5 +54,8 @@ public class CreditCardService {
         creditCard.setAvailableCredit(availableCredit);
 
         creditCard.setCurrentBalance(currentBalance);
+    }
+    public List<CreditCard> getCardsByUsername(String username) {
+        return creditCardRepository.findAllByUsername(username);
     }
 }
