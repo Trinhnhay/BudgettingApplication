@@ -3,6 +3,8 @@ package com.example.demo.CreditCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping(path = "credit_card")
@@ -24,6 +26,11 @@ public class CreditCardController {
     @GetMapping (path ="current-balance-of-{cardNumber}")
     public Double getCurrentBalance(@PathVariable ("cardNumber") String cardNumber){
         return creditCardService.getCurrentBalance(cardNumber);
+    }
+
+    @GetMapping(path="{username}")
+    public List<CreditCard> getCardsByUsername(@PathVariable("username") String username) {
+        return creditCardService.getCardsByUsername(username);
     }
 
 
