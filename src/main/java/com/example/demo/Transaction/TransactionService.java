@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @Service
@@ -176,6 +178,42 @@ public class TransactionService {
             }
         }
         return totalAmountInDays;
+    }
+
+    public List<Double> getBalanceInMonths(String username, String cardNumber, Integer numOfMonths) {
+        ZonedDateTime currentDate = ZonedDateTime.now();
+        ZonedDateTime farthestDate = currentDate.minusMonths(numOfMonths);
+        List<Double> monthBalances = new ArrayList<>();
+        for (int i = 0; i < numOfMonths; i++) {
+            Optional<Double> bal = transactionRepository.findBalanceUpToDate(username, cardNumber, farthestDate);
+            if (bal.isPresent()) {
+                monthBalances.add(bal.get());
+            }
+            farthestDate = farthestDate.plusMonths(1);
+        }
+        Optional<Double> currentBalance = transactionRepository.findBalanceUpToDate(username, cardNumber, currentDate);
+        if (currentBalance.isPresent()) {
+            monthBalances.add(currentBalance.get());
+        }
+        return monthBalances;
+    }
+
+    public List<Double> getBalanceInDays(String username, String cardNumber, Integer numOfDays) {
+        ZonedDateTime currentDate = ZonedDateTime.now();
+        ZonedDateTime farthestDate = currentDate.minusDays(numOfDays);
+        List<Double> dayBalances = new ArrayList<>();
+        for (int i = 0; i < numOfDays; i++) {
+            Optional<Double> bal = transactionRepository.findBalanceUpToDate(username, cardNumber, farthestDate);
+            if (bal.isPresent()) {
+                dayBalances.add(bal.get());
+            }
+            farthestDate = farthestDate.plusDays(1);
+        }
+        Optional<Double> currentBalance = transactionRepository.findBalanceUpToDate(username, cardNumber, currentDate);
+        if (currentBalance.isPresent()) {
+            dayBalances.add(currentBalance.get());
+        }
+        return dayBalances;
     }
 
     public void doesUsernameExist(String username) {

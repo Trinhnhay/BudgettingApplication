@@ -113,5 +113,20 @@ public class TransactionController {
         return transactionService.getTotalTransactionAmountInDays(username, cardNumber,month, year);
     }
 
+    // Return the outstanding balance over the past year, month by month
+    @GetMapping(path="{username}/balance-in-months-of-{cardNumber}")
+    public List<Double> getBalanceInMonths( @PathVariable("username") String username,
+                                            @PathVariable("cardNumber") String cardNumber,
+                                            Integer numOfMonths) {
+        return transactionService.getBalanceInMonths(username, cardNumber, numOfMonths);
+    }
+
+    @GetMapping(path="{username}/balance-in-days-of-{cardNumber}")
+    public List<Double> getBalanceInDays( @PathVariable("username") String username,
+                                            @PathVariable("cardNumber") String cardNumber,
+                                            Integer numOfDays) {
+        return transactionService.getBalanceInDays(username, cardNumber, numOfDays);
+    }
+
 
 }
