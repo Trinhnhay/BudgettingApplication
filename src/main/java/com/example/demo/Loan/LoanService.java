@@ -4,6 +4,7 @@ import com.example.demo.Exception.RequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class LoanService {
@@ -47,5 +48,9 @@ public class LoanService {
     public Date getLoanDueDate(Integer loanId){
         Loan loan = doesLoanExist(loanId);
         return loan.getLoanDueDate();
+    }
+
+    public List<Loan> getLoansByUsername(String username) {
+        return loanRepository.findAllByUsername(username);
     }
 }
