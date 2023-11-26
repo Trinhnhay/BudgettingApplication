@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -31,6 +33,9 @@ public interface TransactionRepository extends JpaRepository <Transaction, Long>
 
     @Query("SELECT s from Transaction s WHERE s.username= ?1 and s.cardNumber= ?2 ORDER BY s.transDate DESC")
     List<Transaction> findTransactionByCardNumber(String username, String cardNumber);
+
+    @Query(value = "SELECT SUM(trans_amount) FROM Transaction WHERE username = ?1 AND card_number = ?2 AND trans_date < ?3", nativeQuery = true)
+    Optional<Double> findBalanceUpToDate(String username, String cardNumber, ZonedDateTime endDate);
 
 
 }
