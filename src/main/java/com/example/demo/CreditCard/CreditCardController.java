@@ -19,7 +19,8 @@ public class CreditCardController {
 
     //Add a credit card
     @PostMapping(path= "{username}/add_new_card")
-    public void addCreditCard (@PathVariable ("username") String username, @RequestBody CreditCard creditCard){
+    public void addCreditCard (@PathVariable ("username") String username,
+                               @RequestBody CreditCard creditCard){
         creditCardService.addCreditCard (creditCard, username);
     }
 
