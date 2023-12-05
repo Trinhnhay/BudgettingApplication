@@ -5,11 +5,11 @@ import com.example.demo.Customer.CustomerRepository;
 import com.example.demo.Exception.RequestException;
 import com.example.demo.Exception.SuccessfulRequest;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -29,7 +29,7 @@ public class TransactionService {
         this.creditCardService = creditCardService;
     }
 
-    public void addNewTransaction (Transaction transaction, String username) {
+    public void addNewTransaction (@NotNull Transaction transaction, String username) {
         doesUsernameExist(username);
         transaction.setUsername(username);
         doesCreditCardExist(transaction.getCardNumber());

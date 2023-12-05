@@ -1,27 +1,29 @@
 package com.example.demo.Transaction;
 
+import com.example.demo.Customer.Customer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name="transaction")
 public class Transaction {
 
     @Id
-    @Column (name ="trans_id",
-            nullable = false)
+    @Column (name ="trans_id", unique = true)
     @SequenceGenerator(name = "sequence", sequenceName = "transSequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long transID;
+
 
     @Column(name="card_number",
             nullable = false)
@@ -49,4 +51,8 @@ public class Transaction {
     @Column(name="username",
             columnDefinition = "text")
     private String username;
+
+    public Transaction() {
+
+    }
 }

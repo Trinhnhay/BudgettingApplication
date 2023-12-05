@@ -20,11 +20,11 @@ public class TransactionController {
     }
 
 
-    // Add a new transaction
-    @PostMapping(path="{username}/new")
+   //  Add a new transaction
+   @PostMapping(path="{username}/new")
     public void addNewTransaction(@PathVariable ("username")String username,
                                   @RequestBody Transaction transaction){
-        transactionService.addNewTransaction(transaction, username);
+       transactionService.addNewTransaction(transaction, username);
     }
 
 

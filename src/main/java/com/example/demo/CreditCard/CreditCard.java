@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
@@ -12,7 +11,6 @@ import java.sql.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table (name="credit_card")
 public class CreditCard {
@@ -30,7 +28,7 @@ public class CreditCard {
 
     @Column(name ="interest_rate",
             nullable = false)
-    private Double interestRate; // Assume it is monthly rate
+    private Double interestRate;
 
     @Column(name ="credit_limit",
             nullable = false)
@@ -48,7 +46,8 @@ public class CreditCard {
             nullable = false)
     private Double minimumPayment;
 
-    @Column (name="due_date")
+    @Column (name="due_date",
+            columnDefinition ="date")
     @JsonFormat(pattern = "MM/dd/yyyy")
     private Date dueDate;
 
@@ -59,4 +58,10 @@ public class CreditCard {
     @Column (name ="username")
     private String username;
 
+    public CreditCard() {
+
+    }
+
+    public CreditCard(String number, String issuer, double v, double v1, double v2, double v3, double v4, double v5, String janedoe) {
+    }
 }
