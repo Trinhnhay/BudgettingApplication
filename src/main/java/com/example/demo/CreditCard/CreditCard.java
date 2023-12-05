@@ -62,6 +62,16 @@ public class CreditCard {
 
     }
 
-    public CreditCard(String number, String issuer, double v, double v1, double v2, double v3, double v4, double v5, String janedoe) {
+    public CreditCard(String number, String issuer, double interestRate, double creditLimit, double currentBalance,
+                      double availableCredit, double minimumPayment, double paymentDue, String username) {
+    this.cardNumber = number;
+    this.issuer = issuer;
+    this.interestRate =interestRate;
+    this.currentBalance =currentBalance;
+    this.availableCredit = availableCredit;
+    this.creditLimit =creditLimit;
+    this.minimumPayment = minimumPayment;
+    this.paymentDue = paymentDue;
+    this.username= username;
     }
 }
